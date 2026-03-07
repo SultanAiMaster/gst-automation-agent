@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GST Automation Agent | Simplify GST Return Filing</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --secondary: #6c757d;
+            --success: #28a745;
+            --danger: #dc3545;
+            --warning: #ffc107;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --card-bg: #ffffff;
+            --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar-brand {
+            color: white !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+
+        .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            transition: all 0.3s;
+        }
+
+        .nav-link:hover {
+            color: white !important;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-btn {
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            transition: all 0.3s;
+            background: var(--card-bg);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+
+        .card-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 15px 15px 0 0 !important;
+            font-weight: bold;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        /* Stats Cards */
+        .stat-card {
+            border-radius: 15px;
+            padding: 25px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 1rem;
+            margin-top: 5px;
+        }
+
+        /* Forms */
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 12px 15px;
+            transition: all 0.3s;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 10px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Sections */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 3rem;
+            color: #333;
+        }
+
+        /* Footer */
+        footer {
+            background: #333;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        /* Tables */
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table thead {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .table tbody tr:hover {
+            background: rgba(102, 126, 234, 0.05);
+        }
+
+        /* Alert */
+        .alert {
+            border-radius: 10px;
+            border: none;
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .spinner-border {
+            width: 3rem;
+            height: 3rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .stat-value {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home">
+                <i class="bi bi-calculator"></i> GST Agent
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#invoice">Invoice</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#reports">Reports</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>GST Return Automation Agent</h1>
+            <p>Simplify GST return filing for every GSTIN holder in India. Calculate taxes, generate reports, and file returns automatically.</p>
+            <button class="hero-btn" onclick="scrollToSection('invoice')">Get Started</button>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features">
+        <div class="container">
+            <h2 class="section-title">Powerful Features</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card h-100 p-4 text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-calculator"></i>
+                        </div>
+                        <h3>Auto GST Calculation</h3>
+                        <p>Automatically calculate CGST, SGST, IGST based on transaction type and location.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 p-4 text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-file-earmark-text"></i>
+                        </div>
+                        <h3>GSTR Reports</h3>
+                        <p>Generate GSTR-1 and GSTR-3B reports with JSON export for GST portal.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 p-4 text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-bell"></i>
+                        </div>
+                        <h3>Filing Reminders</h3>
+                        <p>Never miss a deadline with automated filing deadline reminders.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 p-4 text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-cash-coin"></i>
+                        </div>
+                        <h3>ITC Tracking</h3>
+                        <p>Track Input Tax Credit and reconcile purchases automatically.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 p-4 text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-multiple-gstin"></i>
+                        </div>
+                        <h3>Multi-GSTIN</h3>
+                        <p>Manage multiple GSTINs for different business locations.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card h-100 p-4 text-center">
+                        <div class="feature-icon">
+                            <i class="bi bi-shield-check"></i>
+                        </div>
+                        <h3>Compliance Dashboard</h3>
+                        <p>Monitor compliance status and track all tax activities in one place.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Invoice Section -->
+    <section id="invoice" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Create Invoice</h2>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="bi bi-plus-circle"></i> New Invoice
+                        </div>
+                        <div class="card-body">
+                            <form id="invoiceForm">
+                                <div class="mb-3">
+                                    <label class="form-label">Select Business</label>
+                                    <select class="form-select" id="businessSelect">
+                                        <option value="">Select a business...</option>
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Invoice Type</label>
+                                    <select class="form-select" id="invoiceType">
+                                        <option value="sales">Sales Invoice</option>
+                                        <option value="purchase">Purchase Invoice</option>
+                                    </select>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Invoice Number</label>
+                                        <input type="text" class="form-control" id="invoiceNumber" placeholder="INV-001">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Invoice Date</label>
+                                        <input type="date" class="form-control" id="invoiceDate">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Customer Name</label>
+                                    <input type="text" class="form-control" id="customerName" placeholder="Enter customer name">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Customer GSTIN (Optional)</label>
+                                        <input type="text" class="form-control" id="customerGSTIN" placeholder="15-digit GSTIN">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Customer State</label>
+                                        <select class="form-select" id="customerState">
+                                            <option value="">Select State...</option>
+                                            <option value="27">Maharashtra</option>
+                                            <option value="29">Karnataka</option>
+                                            <option value="10">Delhi</option>
+                                            <option value="07">Delhi</option>
+                                            <option value="05">Uttar Pradesh</option>
+                                            <option value="33">Tamil Nadu</option>
+                                            <option value="13">Nagaland</option>
+                                            <option value="03">Punjab</option>
+                                            <option value="02">Himachal Pradesh</option>
+                                            <option value="01">Jammu & Kashmir</option>
+                                            <option value="04">Chandigarh</option>
+                                            <option value="06">Haryana</option>
+                                            <option value="08">Rajasthan</option>
+                                            <option value="09">Uttarakhand</option>
+                                            <option value="20">Jharkhand</option>
+                                            <option value="21">Odisha</option>
+                                            <option value="22">Chhattisgarh</option>
+                                            <option value="23">Madhya Pradesh</option>
+                                            <option value="24">Gujarat</option>
+                                            <option value="25">Daman & Diu</option>
+                                            <option value="26">Dadra & Nagar Haveli</option>
+                                            <option value="28">Andhra Pradesh</option>
+                                            <option value="30">Goa</option>
+                                            <option value="31">Lakshadweep</option>
+                                            <option value="32">Kerala</option>
+                                            <option value="34">Puducherry</option>
+                                            <option value="35">Andaman & Nicobar</option>
+                                            <option value="36">Telangana</option>
+                                            <option value="37">Andhra Pradesh</option>
+                                            <option value="38">Sikkim</option>
+                                            <option value="97">Other Territory</option>
+                                            <option value="99">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Amount (₹)</label>
+                                    <input type="number" class="form-control" id="amount" placeholder="Enter amount">
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">GST Rate (%)</label>
+                                    <select class="form-select" id="gstRate">
+                                        <option value="0">0% (Exempt)</option>
+                                        <option value="5">5%</option>
+                                        <option value="12">12%</option>
+                                        <option value="18" selected>18%</option>
+                                        <option value="28">28%</option>
+                                    </select>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="bi bi-plus-circle"></i> Create Invoice
+                                </button>
+                            </form>
+
+                            <div id="loading" class="loading">
+                                <div class="spinner-border text-primary" role="status">
+                                    <span class="visually-hidden">Loading...</span>
+                                </div>
+                                <p class="mt-3">Processing invoice...</p>
+                            </div>
+
+                            <div id="result" class="alert mt-3" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reports Section -->
+    <section id="reports">
+        <div class="container">
+            <h2 class="section-title">GST Reports</h2>
+            <div class="row">
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <i class="bi bi-file-earmark-bar-graph"></i> GSTR-1
+                        </div>
+                        <div class="card-body">
+                            <p>Generate GSTR-1 report for outward supplies.</p>
+                            <div class="mb-3">
+                                <label class="form-label">Period (YYYY-MM)</label>
+                                <input type="month" class="form-control" id="gstr1Period">
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="generateGSTR1()">
+                                <i class="bi bi-download"></i> Generate GSTR-1
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <i class="bi bi-calculator-fill"></i> GSTR-3B
+                        </div>
+                        <div class="card-body">
+                            <p>Calculate GSTR-3B tax liability.</p>
+                            <div class="mb-3">
+                                <label class="form-label">Period (YYYY-MM)</label>
+                                <input type="month" class="form-control" id="gstr3bPeriod">
+                            </div>
+                            <button class="btn btn-primary w-100" onclick="generateGSTR3B()">
+                                <i class="bi bi-download"></i> Generate GSTR-3B
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" style="background: #f8f9fa;">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <i class="bi bi-telephone-fill" style="font-size: 3rem; color: #667eea;"></i>
+                        <h4>Phone</h4>
+                        <p>+91 86385 56847</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <i class="bi bi-envelope-fill" style="font-size: 3rem; color: #667eea;"></i>
+                        <h4>Email</h4>
+                        <p>workchainofficial@gmail.com</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="stat-card">
+                        <i class="bi bi-github" style="font-size: 3rem; color: #667eea;"></i>
+                        <h4>GitHub</h4>
+                        <p>SultanAiMaster</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 GST Automation Agent. All rights reserved.</p>
+            <p>Building intelligent systems that work while you sleep 🤖</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        // Set default date to today
+        document.getElementById('invoiceDate').valueAsDate = new Date();
+
+        // Set default periods
+        const today = new Date();
+        const currentPeriod = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}`;
+        document.getElementById('gstr1Period').value = currentPeriod;
+        document.getElementById('gstr3bPeriod').value = currentPeriod;
+
+        // Function to scroll to section
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Invoice form submission
+        document.getElementById('invoiceForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            const businessSelect = document.getElementById('businessSelect');
+            const invoiceType = document.getElementById('invoiceType').value;
+            const invoiceNumber = document.getElementById('invoiceNumber').value;
+            const invoiceDate = document.getElementById('invoiceDate').value;
+            const customerName = document.getElementById('customerName').value;
+            const customerGSTIN = document.getElementById('customerGSTIN').value;
+            const customerState = document.getElementById('customerState').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+            const gstRate = parseFloat(document.getElementById('gstRate').value);
+
+            // Validation
+            if (!businessSelect.value) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Please select a business'
+                });
+                return;
+            }
+
+            if (!invoiceNumber || !amount || !customerName) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Please fill all required fields'
+                });
+                return;
+            }
+
+            const loading = document.getElementById('loading');
+            const result = document.getElementById('result');
+            const businessId = parseInt(businessSelect.value);
+
+            loading.style.display = 'block';
+            result.style.display = 'none';
+
+            try {
+                const response = await fetch('/api/invoice/create', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        business_id: businessId,
+                        invoice_type: invoiceType,
+                        invoice_number: invoiceNumber,
+                        invoice_date: invoiceDate,
+                        customer_name: customerName,
+                        customer_gstin: customerGSTIN,
+                        customer_state: customerState,
+                        amount: amount,
+                        gst_rate: gstRate,
+                        items: [{
+                            item_name: 'Service/Product',
+                            quantity: 1,
+                            unit_price: amount,
+                            gst_rate: gstRate
+                        }]
+                    })
+                });
+
+                const data = await response.json();
+
+                loading.style.display = 'none';
+                result.style.display = 'block';
+
+                if (data.success) {
+                    result.className = 'alert alert-success';
+                    result.innerHTML = `
+                        <strong>Success!</strong> Invoice created successfully.<br>
+                        <strong>GST Breakdown:</strong><br>
+                        Taxable Amount: ₹${data.gst_breakdown.taxable_amount || amount}<br>
+                        CGST: ₹${data.gst_breakdown.cgst.toFixed(2)}<br>
+                        SGST: ₹${data.gst_breakdown.sgst.toFixed(2)}<br>
+                        IGST: ₹${data.gst_breakdown.igst.toFixed(2)}<br>
+                        Total GST: ₹${data.gst_breakdown.total_gst.toFixed(2)}<br>
+                        Total Amount: ₹${data.gst_breakdown.total_amount.toFixed(2)}
+                    `;
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Invoice Created!',
+                        text: 'Invoice created successfully',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                } else {
+                    result.className = 'alert alert-danger';
+                    result.innerHTML = `<strong>Error:</strong> ${data.message}`;
+                }
+            } catch (error) {
+                loading.style.display = 'none';
+                result.style.display = 'block';
+                result.className = 'alert alert-danger';
+                result.innerHTML = `<strong>Error:</strong> ${error.message}`;
+            }
+        });
+
+        // Generate GSTR-1
+        async function generateGSTR1() {
+            const businessSelect = document.getElementById('businessSelect');
+            const period = document.getElementById('gstr1Period').value;
+
+            if (!businessSelect.value) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Please select a business first'
+                });
+                return;
+            }
+
+            if (!period) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Please select a period'
+                });
+                return;
+            }
+
+            const businessId = parseInt(businessSelect.value);
+
+            try {
+                Swal.fire({
+                    title: 'Generating GSTR-1...',
+                    text: 'Please wait while we generate the report',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                const response = await fetch(`/api/gstr1/${businessId}/${period}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    Swal.close();
+
+                    let reportHtml = `
+                        <h4>GSTR-1 Report</h4>
+                        <p><strong>Period:</strong> ${data.period}</p>
+                        <p><strong>Business:</strong> ${data.business_name} (${data.gstin})</p>
+                        <hr>
+                        <h5>Summary</h5>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Total Invoices</td>
+                                    <td>${data.summary.total_invoices}</td>
+                                </tr>
+                                <tr>
+                                    <td>B2B Invoices</td>
+                                    <td>${data.summary.b2b_invoices}</td>
+                                </tr>
+                                <tr>
+                                    <td>B2C Invoices</td>
+                                    <td>${data.summary.b2c_invoices}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total Taxable Value</td>
+                                    <td>₹${data.summary.total_taxable_value.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total IGST</td>
+                                    <td>₹${data.summary.total_igst.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total CGST</td>
+                                    <td>₹${data.summary.total_cgst.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total SGST</td>
+                                    <td>₹${data.summary.total_sgst.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total Tax</strong></td>
+                                    <td><strong>₹${data.summary.total_tax.toFixed(2)}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `;
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'GSTR-1 Generated!',
+                        html: reportHtml,
+                        width: '800px'
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message
+                });
+            }
+        }
+
+        // Generate GSTR-3B
+        async function generateGSTR3B() {
+            const businessSelect = document.getElementById('businessSelect');
+            const period = document.getElementById('gstr3bPeriod').value;
+
+            if (!businessSelect.value) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Please select a business first'
+                });
+                return;
+            }
+
+            if (!period) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Please select a period'
+                });
+                return;
+            }
+
+            const businessId = parseInt(businessSelect.value);
+
+            try {
+                Swal.fire({
+                    title: 'Generating GSTR-3B...',
+                    text: 'Please wait while we calculate the report',
+                    allowOutsideClick: false,
+                    didOpen: () => {
+                        Swal.showLoading();
+                    }
+                });
+
+                const response = await fetch(`/api/gstr3b/${businessId}/${period}`);
+                const data = await response.json();
+
+                if (data.success) {
+                    Swal.close();
+
+                    let reportHtml = `
+                        <h4>GSTR-3B Report</h4>
+                        <p><strong>Period:</strong> ${data.period} (Quarter ${data.summary['4.0'].tax_payable.total.toFixed(2)})</p>
+                        <p><strong>Business:</strong> ${data.business_name} (${data.gstin})</p>
+                        <hr>
+                        <h5>3.1 - Outward Supplies</h5>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Taxable Value</td>
+                                    <td>₹${data.summary['3.1'].outward_supplies.total_taxable_value.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>IGST</td>
+                                    <td>₹${data.summary['3.1'].outward_supplies.igst.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>CGST</td>
+                                    <td>₹${data.summary['3.1'].outward_supplies.cgst.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>SGST</td>
+                                    <td>₹${data.summary['3.1'].outward_supplies.sgst.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total Tax</strong></td>
+                                    <td><strong>₹${data.summary['3.1'].outward_supplies.total_tax.toFixed(2)}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h5>3.2 - ITC (Input Tax Credit)</h5>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Taxable Value</td>
+                                    <td>₹${data.summary['3.2'].itc.total_taxable_value.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>IGST</td>
+                                    <td>₹${data.summary['3.2'].itc.igst.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>CGST</td>
+                                    <td>₹${data.summary['3.2'].itc.cgst.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>SGST</td>
+                                    <td>₹${data.summary['3.2'].itc.sgst.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total ITC</strong></td>
+                                    <td><strong>₹${data.summary['3.2'].itc.total_itc.toFixed(2)}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <h5>4.0 - Tax Payable</h5>
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Tax Type</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>IGST Payable</td>
+                                    <td>₹${data.summary['4.0'].tax_payable.igst.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>CGST Payable</td>
+                                    <td>₹${data.summary['4.0'].tax_payable.cgst.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td>SGST Payable</td>
+                                    <td>₹${data.summary['4.0'].tax_payable.sgst.toFixed(2)}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Total Tax Payable</strong></td>
+                                    <td><strong>₹${data.summary['4.0'].tax_payable.total.toFixed(2)}</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    `;
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'GSTR-3B Generated!',
+                        html: reportHtml,
+                        width: '800px'
+                    });
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error',
+                        text: data.message
+                    });
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message
+                });
+            }
+        }
+    </script>
+</body>
+</html>
