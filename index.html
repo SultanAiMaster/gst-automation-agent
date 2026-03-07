@@ -108,6 +108,44 @@
             font-weight: 300;
         }
 
+        .creator-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: rgba(102, 126, 234, 0.2);
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            border: 2px solid rgba(102, 126, 234, 0.4);
+        }
+
+        .creator-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .creator-info {
+            text-align: left;
+        }
+
+        .creator-info strong {
+            display: block;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .creator-info span {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+        }
+
         .hero-stats {
             display: flex;
             justify-content: center;
@@ -180,16 +218,161 @@
             transform: translateY(-5px);
         }
 
-        /* Features Section */
-        .features {
+        /* About/Concept Section */
+        .about {
             padding: 100px 0;
             background: var(--darker);
         }
 
-        .features .container {
+        .about .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .about-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-content p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+
+        .concept-box {
+            background: var(--dark);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .concept-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .concept-list {
+            list-style: none;
+        }
+
+        .concept-list li {
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            gap: 1rem;
+            align-items: start;
+        }
+
+        .concept-list li:last-child {
+            border-bottom: none;
+        }
+
+        .concept-list i {
+            color: var(--success);
+            font-size: 1.5rem;
+            margin-top: 0.3rem;
+        }
+
+        /* Investor Benefits Section */
+        .investor-benefits {
+            padding: 100px 0;
+            background: var(--dark);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            background: var(--darker);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .benefit-card:hover::before {
+            left: 100%;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        .benefit-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .benefit-card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        .benefit-value {
+            margin-top: 1.5rem;
+            padding: 1rem;
+            background: rgba(0, 255, 148, 0.1);
+            border-left: 4px solid var(--success);
+            border-radius: 5px;
+            font-weight: 600;
+            color: var(--success);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: var(--darker);
         }
 
         .section-title {
@@ -576,9 +759,14 @@
                 font-size: 2.5rem;
             }
 
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
             .features-grid,
             .market-grid,
-            .pricing-grid {
+            .pricing-grid,
+            .benefits-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -636,6 +824,16 @@
             <span class="hero-badge">
                 <i class="fas fa-rocket"></i> DEMO VERSION
             </span>
+            
+            <!-- Creator Badge -->
+            <div class="creator-badge fade-in">
+                <div class="creator-avatar">SA</div>
+                <div class="creator-info">
+                    <strong>Created by Sultan Ahmed</strong>
+                    <span>AI & Automation Builder | Assam, India</span>
+                </div>
+            </div>
+            
             <h1>Bharat GST AI</h1>
             <p>India's #1 Automated GST Return Assistant - Eliminating Tax Compliance Headaches for Millions of Businesses</p>
             
@@ -655,12 +853,146 @@
             </div>
             
             <div class="cta-group slide-up">
-                <a href="#demo" class="cta-btn cta-primary">
-                    <i class="fas fa-play-circle"></i> Watch Demo
+                <a href="#concept" class="cta-btn cta-primary">
+                    <i class="fas fa-lightbulb"></i> Understand Concept
                 </a>
-                <a href="#contact" class="cta-btn cta-secondary">
-                    <i class="fas fa-envelope"></i> Contact Us
+                <a href="#investor" class="cta-btn cta-secondary">
+                    <i class="fas fa-chart-line"></i> Investor Benefits
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About/Concept Section -->
+    <section class="about" id="concept">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-content slide-up">
+                    <h2>What is Bharat GST AI?</h2>
+                    <p>Bharat GST AI is designed to simplify GST compliance for businesses in India through automation and AI assistance.</p>
+                    <p>The goal is to reduce the complexity of GST return filing by providing businesses with a simple digital system that manages reminders, data organization, and return preparation.</p>
+                    <p>Currently, businesses spend hours calculating taxes, managing invoices, and ensuring compliance. Our platform automates all of this - from GST calculation to GSTR report generation, from deadline reminders to AI-powered tax advice.</p>
+                </div>
+                
+                <div class="concept-box slide-up" style="animation-delay: 0.2s;">
+                    <h3>
+                        <i class="fas fa-cogs"></i>
+                        Core Concept
+                    </h3>
+                    <ul class="concept-list">
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Automated GST Calculation</strong>
+                                <p style="font-size: 0.9rem; margin-top: 0.3rem; color: rgba(255,255,255,0.5);">Instant CGST, SGST, IGST based on transaction type</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>GSTR Report Generation</strong>
+                                <p style="font-size: 0.9rem; margin-top: 0.3rem; color: rgba(255,255,255,0.5);">One-click GSTR-1, GSTR-3B, GSTR-9 reports</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>ITC Tracking & Optimization</strong>
+                                <p style="font-size: 0.9rem; margin-top: 0.3rem; color: rgba(255,255,255,0.5);">Maximize Input Tax Credit savings</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>AI-Powered GST Advice</strong>
+                                <p style="font-size: 0.9rem; margin-top: 0.3rem; color: rgba(255,255,255,0.5);">24/7 AI assistance for complex tax queries</p>
+                            </div>
+                        </li>
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            <div>
+                                <strong>Filing Deadline Reminders</strong>
+                                <p style="font-size: 0.9rem; margin-top: 0.3rem; color: rgba(255,255,255,0.5);">Never miss a deadline with smart notifications</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Investor Benefits Section -->
+    <section class="investor-benefits" id="investor">
+        <div class="container">
+            <h2 class="section-title">Why Invest?</h2>
+            <p class="section-subtitle">Huge market opportunity with proven business model</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card slide-up">
+                    <div class="benefit-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Massive Market</h3>
+                    <p>140M+ GST registered users in India. Untapped market with minimal competition. First-mover advantage in automated GST solutions.</p>
+                    <div class="benefit-value">
+                        📈 140M+ Potential Users
+                    </div>
+                </div>
+                
+                <div class="benefit-card slide-up" style="animation-delay: 0.1s;">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Recurring Revenue</h3>
+                    <p>Subscription-based SaaS model with monthly recurring revenue. Predictable cash flow and high customer lifetime value.</p>
+                    <div class="benefit-value">
+                        💰 ₹999-₹4999/month per user
+                    </div>
+                </div>
+                
+                <div class="benefit-card slide-up" style="animation-delay: 0.2s;">
+                    <div class="benefit-icon">
+                        <i class="fas fa-bullseye"></i>
+                    </div>
+                    <h3>Proven Demand</h3>
+                    <p>GST compliance is mandatory for businesses. 140M+ users need this solution. Strong problem-solution fit.</p>
+                    <div class="benefit-value">
+                        🎯 Mandatory Compliance Need
+                    </div>
+                </div>
+                
+                <div class="benefit-card slide-up" style="animation-delay: 0.3s;">
+                    <div class="benefit-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3>Low CAC, High LTV</h3>
+                    <p>Low customer acquisition cost through organic growth. High lifetime value from long-term subscriptions.</p>
+                    <div class="benefit-value">
+                        📊 High ROI Potential
+                    </div>
+                </div>
+                
+                <div class="benefit-card slide-up" style="animation-delay: 0.4s;">
+                    <div class="benefit-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3>Scalable Technology</h3>
+                    <p>Built with scalable architecture. Can handle millions of users without significant infrastructure costs. Ready for exponential growth.</p>
+                    <div class="benefit-value">
+                        🚀 Ready to Scale
+                    </div>
+                </div>
+                
+                <div class="benefit-card slide-up" style="animation-delay: 0.5s;">
+                    <div class="benefit-icon">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                    <h3>Moat & Barriers</h3>
+                    <p>First-mover advantage, AI technology integration, and network effects create strong competitive barriers.</p>
+                    <div class="benefit-value">
+                        🛡️ Strong Competitive Moat
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -672,37 +1004,37 @@
             <p class="section-subtitle">Built for Businesses, CAs, and Tax Professionals</p>
             
             <div class="features-grid">
-                <div class="feature-card slide-up" style="animation-delay: 0.1s;">
+                <div class="feature-card slide-up">
                     <i class="fas fa-calculator feature-icon"></i>
                     <h3>Auto GST Calculation</h3>
                     <p>Instant CGST, SGST, IGST calculation with inter-state detection. Zero errors, 100% compliance.</p>
                 </div>
                 
-                <div class="feature-card slide-up" style="animation-delay: 0.2s;">
+                <div class="feature-card slide-up" style="animation-delay: 0.1s;">
                     <i class="fas fa-file-invoice feature-icon"></i>
                     <h3>GSTR Reports</h3>
                     <p>Generate GSTR-1, GSTR-3B, GSTR-9 reports in one click. JSON export ready for GST portal.</p>
                 </div>
                 
-                <div class="feature-card slide-up" style="animation-delay: 0.3s;">
+                <div class="feature-card slide-up" style="animation-delay: 0.2s;">
                     <i class="fas fa-bell feature-icon"></i>
                     <h3>Filing Reminders</h3>
                     <p>Never miss a deadline. Smart notifications via SMS, Email, and WhatsApp.</p>
                 </div>
                 
-                <div class="feature-card slide-up" style="animation-delay: 0.4s;">
+                <div class="feature-card slide-up" style="animation-delay: 0.3s;">
                     <i class="fas fa-chart-line feature-icon"></i>
                     <h3>ITC Tracking</h3>
                     <p>Input Tax Credit reconciliation. Maximize savings with smart ITC optimization.</p>
                 </div>
                 
-                <div class="feature-card slide-up" style="animation-delay: 0.5s;">
+                <div class="feature-card slide-up" style="animation-delay: 0.4s;">
                     <i class="fas fa-robot feature-icon"></i>
                     <h3>AI GST Advisor</h3>
                     <p>24/7 AI-powered tax advice. Get instant answers to complex GST questions.</p>
                 </div>
                 
-                <div class="feature-card slide-up" style="animation-delay: 0.6s;">
+                <div class="feature-card slide-up" style="animation-delay: 0.5s;">
                     <i class="fas fa-users feature-icon"></i>
                     <h3>Multi-GSTIN Support</h3>
                     <p>Manage multiple GSTINs for different business locations. Perfect for enterprises.</p>
@@ -922,7 +1254,7 @@
     <!-- Footer -->
     <footer>
         <p>&copy; 2026 Bharat GST AI. All rights reserved.</p>
-        <p>Building intelligent systems that work while you sleep 🤖</p>
+        <p>Created by Sultan Ahmed | AI & Automation Builder | Assam, India</p>
         <p>
             <a href="https://github.com/SultanAiMaster/gst-automation-agent" target="_blank" class="github-link">
                 <i class="fab fa-github"></i> View on GitHub
