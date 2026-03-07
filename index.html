@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharat GST AI - Demo Version | Investor Pitch</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #00f2fe;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --light: #f8f9fa;
+            --success: #00b894;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--dark);
+            color: white;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+            animation: pulse 8s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            padding: 2rem;
+            max-width: 1200px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 10px 30px;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+            letter-spacing: -1px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 2.5rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            padding: 18px 50px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .cta-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .cta-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            background: var(--darker);
+        }
+
+        .features .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 4rem;
+            font-weight: 300;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: var(--dark);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .feature-card:hover::before {
+            left: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        /* Demo Section */
+        .demo {
+            padding: 100px 0;
+            background: var(--dark);
+        }
+
+        .demo-video {
+            max-width: 1000px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .demo-video video {
+            width: 100%;
+            display: block;
+        }
+
+        .demo-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .demo-overlay i {
+            font-size: 4rem;
+            color: var(--accent);
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .demo-overlay p {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Market Size Section */
+        .market-size {
+            padding: 100px 0;
+            background: var(--darker);
+        }
+
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .market-card {
+            background: var(--dark);
+            border-radius: 20px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        .market-number {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .market-label {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+        }
+
+        .market-card p {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+        }
+
+        /* Timeline Section */
+        .timeline {
+            padding: 100px 0;
+            background: var(--dark);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: flex-start;
+        }
+
+        .timeline-marker {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 2rem;
+            font-weight: 700;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: var(--darker);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 4px solid var(--primary);
+        }
+
+        .timeline-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        .timeline-content p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            background: var(--darker);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--dark);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            text-align: center;
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 50px rgba(102, 126, 234, 0.3);
+        }
+
+        .pricing-card.featured {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transform: scale(1.05);
+        }
+
+        .pricing-card.featured:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+
+        .pricing-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .pricing-price {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-amount {
+            font-size: 1.2rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            text-align: left;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .pricing-features li:last-child {
+            border-bottom: none;
+        }
+
+        .pricing-features i {
+            color: var(--success);
+            margin-right: 10px;
+        }
+
+        .pricing-btn {
+            width: 100%;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        .pricing-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 100px 0;
+            background: var(--dark);
+            text-align: center;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            background: var(--darker);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(102, 126, 234, 0.2);
+            transition: all 0.3s;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .contact-card i {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+
+        .contact-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(102, 126, 234, 0.2);
+        }
+
+        footer p {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 0.5rem;
+        }
+
+        footer .github-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        footer .github-link:hover {
+            color: var(--primary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-stats {
+                gap: 1.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
+            .features-grid,
+            .market-grid,
+            .pricing-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .timeline-item {
+                flex-direction: column;
+            }
+
+            .timeline-marker {
+                width: 60px;
+                height: 60px;
+                font-size: 1.5rem;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-up {
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">
+                <i class="fas fa-rocket"></i> DEMO VERSION
+            </span>
+            <h1>Bharat GST AI</h1>
+            <p>India's #1 Automated GST Return Assistant - Eliminating Tax Compliance Headaches for Millions of Businesses</p>
+            
+            <div class="hero-stats fade-in">
+                <div class="stat-item">
+                    <div class="stat-number">140M+</div>
+                    <div class="stat-label">GST Registered Users</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">₹50K</div>
+                    <div class="stat-label">Average Annual Savings</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">95%</div>
+                    <div class="stat-label">Accuracy Rate</div>
+                </div>
+            </div>
+            
+            <div class="cta-group slide-up">
+                <a href="#demo" class="cta-btn cta-primary">
+                    <i class="fas fa-play-circle"></i> Watch Demo
+                </a>
+                <a href="#contact" class="cta-btn cta-secondary">
+                    <i class="fas fa-envelope"></i> Contact Us
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Powerful Features</h2>
+            <p class="section-subtitle">Built for Businesses, CAs, and Tax Professionals</p>
+            
+            <div class="features-grid">
+                <div class="feature-card slide-up" style="animation-delay: 0.1s;">
+                    <i class="fas fa-calculator feature-icon"></i>
+                    <h3>Auto GST Calculation</h3>
+                    <p>Instant CGST, SGST, IGST calculation with inter-state detection. Zero errors, 100% compliance.</p>
+                </div>
+                
+                <div class="feature-card slide-up" style="animation-delay: 0.2s;">
+                    <i class="fas fa-file-invoice feature-icon"></i>
+                    <h3>GSTR Reports</h3>
+                    <p>Generate GSTR-1, GSTR-3B, GSTR-9 reports in one click. JSON export ready for GST portal.</p>
+                </div>
+                
+                <div class="feature-card slide-up" style="animation-delay: 0.3s;">
+                    <i class="fas fa-bell feature-icon"></i>
+                    <h3>Filing Reminders</h3>
+                    <p>Never miss a deadline. Smart notifications via SMS, Email, and WhatsApp.</p>
+                </div>
+                
+                <div class="feature-card slide-up" style="animation-delay: 0.4s;">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h3>ITC Tracking</h3>
+                    <p>Input Tax Credit reconciliation. Maximize savings with smart ITC optimization.</p>
+                </div>
+                
+                <div class="feature-card slide-up" style="animation-delay: 0.5s;">
+                    <i class="fas fa-robot feature-icon"></i>
+                    <h3>AI GST Advisor</h3>
+                    <p>24/7 AI-powered tax advice. Get instant answers to complex GST questions.</p>
+                </div>
+                
+                <div class="feature-card slide-up" style="animation-delay: 0.6s;">
+                    <i class="fas fa-users feature-icon"></i>
+                    <h3>Multi-GSTIN Support</h3>
+                    <p>Manage multiple GSTINs for different business locations. Perfect for enterprises.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section class="demo" id="demo">
+        <div class="container">
+            <h2 class="section-title">See It In Action</h2>
+            <p class="section-subtitle">Experience the future of GST compliance</p>
+            
+            <div class="demo-video slide-up">
+                <div class="demo-overlay">
+                    <i class="fas fa-play-circle"></i>
+                    <p>Demo Video Coming Soon</p>
+                </div>
+                <!-- Placeholder for demo video -->
+                <div style="background: linear-gradient(135deg, var(--primary), var(--secondary)); height: 500px; display: flex; align-items: center; justify-content: center; border-radius: 20px;">
+                    <div style="text-align: center;">
+                        <i class="fas fa-film" style="font-size: 5rem; color: white; margin-bottom: 1rem;"></i>
+                        <p style="color: white; font-size: 1.5rem; font-weight: 600;">Demo Video</p>
+                        <p style="color: rgba(255,255,255,0.8); margin-top: 0.5rem;">Full product walkthrough coming soon</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Market Size Section -->
+    <section class="market-size">
+        <div class="container">
+            <h2 class="section-title">Market Opportunity</h2>
+            <p class="section-subtitle">Massive market, untapped potential</p>
+            
+            <div class="market-grid">
+                <div class="market-card slide-up">
+                    <div class="market-number">140M+</div>
+                    <div class="market-label">GST Registered Users</div>
+                    <p>Huge target market with recurring revenue potential</p>
+                </div>
+                
+                <div class="market-card slide-up" style="animation-delay: 0.1s;">
+                    <div class="market-number">$2.5T</div>
+                    <div class="market-label">Annual Tax Collection</div>
+                    <p>GST is India's biggest tax system</p>
+                </div>
+                
+                <div class="market-card slide-up" style="animation-delay: 0.2s;">
+                    <div class="market-number">15%</div>
+                    <div class="market-label">Digital Adoption</div>
+                    <p>Growing rapidly with govt. digital initiatives</p>
+                </div>
+                
+                <div class="market-card slide-up" style="animation-delay: 0.3s;">
+                    <div class="market-number">₹50K+</div>
+                    <div class="market-label">Annual Savings Per User</div>
+                    <p>Clear value proposition for businesses</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline">
+        <div class="container">
+            <h2 class="section-title">Development Roadmap</h2>
+            <p class="section-subtitle">8 weeks to market launch</p>
+            
+            <div class="timeline-item slide-up">
+                <div class="timeline-marker">W1</div>
+                <div class="timeline-content">
+                    <h3>Core Foundation</h3>
+                    <p>GST calculation engine, GSTIN validation, invoice management, GSTR reports, basic UI</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item slide-up" style="animation-delay: 0.1s;">
+                <div class="timeline-marker">W2</div>
+                <div class="timeline-content">
+                    <h3>Document Generation</h3>
+                    <p>PDF invoice generation, Excel export, JSON export, print-ready reports</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item slide-up" style="animation-delay: 0.2s;">
+                <div class="timeline-marker">W3</div>
+                <div class="timeline-content">
+                    <h3>Advanced Features</h3>
+                    <p>OCR invoice upload, HSN code detection, multi-item invoices, payment tracking</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item slide-up" style="animation-delay: 0.3s;">
+                <div class="timeline-marker">W4</div>
+                <div class="timeline-content">
+                    <h3>Automation</h3>
+                    <p>GST portal integration, auto-filing, deadline reminders, SMS/Email notifications</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item slide-up" style="animation-delay: 0.4s;">
+                <div class="timeline-marker">W5</div>
+                <div class="timeline-content">
+                    <h3>AI Features</h3>
+                    <p>AI GST advisor chatbot, ITC optimization, tax saving recommendations, risk alerts</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item slide-up" style="animation-delay: 0.5s;">
+                <div class="timeline-marker">W6</div>
+                <div class="timeline-content">
+                    <h3>Multi-User</h3>
+                    <p>User authentication, CA client management, role-based access, team collaboration</p>
+                </div>
+            </div>
+            
+            <div class="timeline-item slide-up" style="animation-delay: 0.6s;">
+                <div class="timeline-marker">W7-8</div>
+                <div class="timeline-content">
+                    <h3>Production Launch</h3>
+                    <p>PostgreSQL deployment, VPS hosting, domain & SSL, API documentation, testing, bug fixes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <h2 class="section-title">Pricing</h2>
+            <p class="section-subtitle">Flexible plans for every business size</p>
+            
+            <div class="pricing-grid">
+                <div class="pricing-card slide-up">
+                    <div class="pricing-name">Free Tier</div>
+                    <div class="pricing-price">₹0</div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> 1 GSTIN</li>
+                        <li><i class="fas fa-check"></i> Basic reports</li>
+                        <li><i class="fas fa-check"></i> Manual filing</li>
+                    </ul>
+                    <button class="pricing-btn">Start Free</button>
+                </div>
+                
+                <div class="pricing-card featured slide-up" style="animation-delay: 0.1s;">
+                    <div class="pricing-name" style="color: white;">Pro</div>
+                    <div class="pricing-price" style="color: white;">
+                        <span class="pricing-amount" style="color: white;">₹999</span>/month
+                    </div>
+                    <ul class="pricing-features" style="color: white;">
+                        <li style="border-color: rgba(255,255,255,0.3);"><i class="fas fa-check"></i> 5 GSTINs</li>
+                        <li style="border-color: rgba(255,255,255,0.3);"><i class="fas fa-check"></i> PDF exports</li>
+                        <li style="border-color: rgba(255,255,255,0.3);"><i class="fas fa-check"></i> Deadline reminders</li>
+                        <li style="border-color: rgba(255,255,255,0.3);"><i class="fas fa-check"></i> Priority support</li>
+                    </ul>
+                    <button class="pricing-btn" style="background: white; color: var(--primary);">Get Pro</button>
+                </div>
+                
+                <div class="pricing-card slide-up" style="animation-delay: 0.2s;">
+                    <div class="pricing-name">Premium</div>
+                    <div class="pricing-price">₹1999<span class="pricing-amount">/month</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Unlimited GSTINs</li>
+                        <li><i class="fas fa-check"></i> AI advice</li>
+                        <li><i class="fas fa-check"></i> Auto-filing</li>
+                        <li><i class="fas fa-check"></i> API access</li>
+                    </ul>
+                    <button class="pricing-btn">Get Premium</button>
+                </div>
+                
+                <div class="pricing-card slide-up" style="animation-delay: 0.3s;">
+                    <div class="pricing-name">Enterprise</div>
+                    <div class="pricing-price">₹4999<span class="pricing-amount">/month</span></div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Custom branding</li>
+                        <li><i class="fas fa-check"></i> Dedicated support</li>
+                        <li><i class="fas fa-check"></i> API rate limits</li>
+                        <li><i class="fas fa-check"></i> CA suite features</li>
+                    </ul>
+                    <button class="pricing-btn">Contact Sales</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Investor Relations</h2>
+            <p class="section-subtitle">Let's build India's #1 GST automation platform together</p>
+            
+            <div class="contact-grid">
+                <div class="contact-card slide-up">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Us</h3>
+                    <p>workchainofficial@gmail.com</p>
+                </div>
+                
+                <div class="contact-card slide-up" style="animation-delay: 0.1s;">
+                    <i class="fas fa-phone"></i>
+                    <h3>Call Us</h3>
+                    <p>+91 86385 56847</p>
+                </div>
+                
+                <div class="contact-card slide-up" style="animation-delay: 0.2s;">
+                    <i class="fab fa-github"></i>
+                    <h3>GitHub</h3>
+                    <p>SultanAiMaster</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Bharat GST AI. All rights reserved.</p>
+        <p>Building intelligent systems that work while you sleep 🤖</p>
+        <p>
+            <a href="https://github.com/SultanAiMaster/gst-automation-agent" target="_blank" class="github-link">
+                <i class="fab fa-github"></i> View on GitHub
+            </a>
+        </p>
+    </footer>
+</body>
+</html>
