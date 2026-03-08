@@ -1,6 +1,7 @@
 /**
- * Animated Video Demo Controller
+ * Animated Video Demo Controller - Auto-playing mode
  * Creates a video-like experience using CSS animations and JavaScript
+ * No play controls - auto-plays on page load
  */
 
 class AnimatedDemoVideo {
@@ -12,11 +13,8 @@ class AnimatedDemoVideo {
         }
 
         this.currentSlide = 0;
-        this.isPlaying = false;
-        this.slideDuration = 5000; // 5 seconds per slide
         this.slides = this.createSlides();
         this.timer = null;
-        this.totalDuration = this.slides.length * this.slideDuration;
 
         this.init();
     }
@@ -227,24 +225,14 @@ class AnimatedDemoVideo {
 
     init() {
         this.renderContainer();
-        this.setupControls();
         this.renderSlide(0);
+        this.startPlayback(); // Auto-start
     }
 
     renderContainer() {
         this.container.innerHTML = `
             <div class="demo-video-container">
                 <div class="demo-video-player" id="demoVideoPlayer"></div>
-                <div class="demo-video-controls">
-                    <button class="play-btn" id="playPauseBtn">
-                        <i class="fas fa-play"></i>
-                    </button>
-                    <div class="progress-bar">
-                        <div class="progress-fill" id="progressFill"></div>
-                    </div>
-                    <div class="time-display" id="timeDisplay">0:00 / 0:35</div>
-                    <div class="slide-number" id="slideNumber">1 / ${this.slides.length}</div>
-                </div>
             </div>
         `;
     }
@@ -275,31 +263,6 @@ class AnimatedDemoVideo {
                 newSlide.classList.add('active');
             }, 50);
         }, 300);
-
-        // Update UI
-        this.updateSlideNumber();
-    }
-
-    setupControls() {
-        const playPauseBtn = document.getElementById('playPauseBtn');
-
-        playPauseBtn.addEventListener('click', () => {
-            this.togglePlay();
-        });
-    }
-
-    togglePlay() {
-        this.isPlaying = !this.isPlaying;
-        const playPauseBtn = document.getElementById('playPauseBtn');
-        playPauseBtn.innerHTML = this.isPlaying ?
-            '<i class="fas fa-pause"></i>' :
-            '<i class="fas fa-play"></i>';
-
-        if (this.isPlaying) {
-            this.startPlayback();
-        } else {
-            this.stopPlayback();
-        }
     }
 
     startPlayback() {
@@ -309,69 +272,13 @@ class AnimatedDemoVideo {
         }, slide.duration);
     }
 
-    stopPlayback() {
-        if (this.timer) {
-            clearInterval(this.timer);
-            this.timer = null;
-        }
-    }
-
     nextSlide() {
         this.currentSlide = (this.currentSlide + 1) % this.slides.length;
         this.renderSlide(this.currentSlide);
-        this.updateProgress();
 
         // Restart timer with new slide duration
-        if (this.isPlaying) {
-            this.stopPlayback();
-            this.startPlayback();
-        }
-    }
-
-    previousSlide() {
-        this.currentSlide = (this.currentSlide - 1 + this.slides.length) % this.slides.length;
-        this.renderSlide(this.currentSlide);
-        this.updateProgress();
-
-        if (this.isPlaying) {
-            this.stopPlayback();
-            this.startPlayback();
-        }
-    }
-
-    updateProgress() {
-        const progressFill = document.getElementById('progressFill');
-        const progress = ((this.currentSlide + 1) / this.slides.length) * 100;
-        progressFill.style.width = `${progress}%`;
-
-        const currentTime = this.calculateCurrentTime();
-        const totalTime = this.calculateTotalTime();
-        const timeDisplay = document.getElementById('timeDisplay');
-        timeDisplay.textContent = `${this.formatTime(currentTime)} / ${this.formatTime(totalTotalTime)}`;
-    }
-
-    calculateCurrentTime() {
-        let time = 0;
-        for (let i = 0; i < this.currentSlide; i++) {
-            time += this.slides[i].duration;
-        }
-        return time;
-    }
-
-    calculateTotalTime() {
-        return this.slides.reduce((total, slide) => total + slide.duration, 0);
-    }
-
-    updateSlideNumber() {
-        const slideNumber = document.getElementById('slideNumber');
-        slideNumber.textContent = `${this.currentSlide + 1} / ${this.slides.length}`;
-    }
-
-    formatTime(ms) {
-        const seconds = Math.floor(ms / 1000);
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
+        clearTimeout(this.timer);
+        this.startPlayback();
     }
 }
 
