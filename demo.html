@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bharat GST AI - Live Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #0f0f1a;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+            color: white;
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .demo-header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #00f2fe, #667eea);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .demo-header p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .demo-steps {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+
+        .step {
+            background: rgba(102, 126, 234, 0.1);
+            border: 1px solid rgba(102, 126, 234, 0.3);
+            padding: 15px 25px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .step i {
+            color: #00f2fe;
+        }
+
+        .step span {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .demo-content {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .demo-content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #00f2fe;
+        }
+
+        .demo-content p {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 30px;
+            line-height: 1.8;
+        }
+
+        .demo-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            padding: 15px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+
+        .demo-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+        }
+
+        .demo-btn i {
+            margin-left: 10px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 30px;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #00f2fe;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            color: #00f2fe;
+            margin-bottom: 15px;
+        }
+
+        .feature h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .feature p {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1>🚀 Bharat GST AI - Live Demo</h1>
+        <p>Experience the future of GST compliance automation</p>
+    </div>
+
+    <div class="demo-steps">
+        <div class="step">
+            <i class="fas fa-check-circle"></i>
+            <span>1. Upload Invoice</span>
+        </div>
+        <div class="step">
+            <i class="fas fa-check-circle"></i>
+            <span>2. Auto Calculate GST</span>
+        </div>
+        <div class="step">
+            <i class="fas fa-check-circle"></i>
+            <span>3. Generate PDF</span>
+        </div>
+        <div class="step">
+            <i class="fas fa-check-circle"></i>
+            <span>4. File GSTR Returns</span>
+        </div>
+    </div>
+
+    <div class="demo-content">
+        <h2>Try Our Demo Invoice</h2>
+        <p>
+            See how Bharat GST AI automates invoice creation in just 60 seconds.
+            Our AI-powered system validates GSTIN, calculates taxes, and generates
+            professional PDF invoices - all automatically!
+        </p>
+        <a href="/" class="demo-btn">
+            <i class="fas fa-play"></i> Start Live Demo
+        </a>
+
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-bolt"></i>
+                <h3>Lightning Fast</h3>
+                <p>Create invoices in 60 seconds</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-file-pdf"></i>
+                <h3>PDF Generation</h3>
+                <p>Professional GST invoices</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-chart-bar"></i>
+                <h3>Auto Reports</h3>
+                <p>GSTR-1 & GSTR-3B ready</p>
+            </div>
+        </div>
+    </div>
+
+    <a href="/" class="back-link">
+        <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+</body>
+</html>
