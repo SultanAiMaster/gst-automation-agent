@@ -6,6 +6,7 @@
     <title>Bharat GST AI - Demo Version | Investor Pitch</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="demo-interactive.css">
     <style>
         :root {
             --primary: #667eea;
@@ -1099,7 +1100,12 @@
             <!-- Demo Features -->
             <div style="margin-top: 60px; text-align: center;">
                 <p style="font-size: 1.3rem; color: var(--accent); margin-bottom: 30px; font-weight: 600;">What You'll See in Demo</p>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+
+                <!-- Interactive Demo Container -->
+                <div id="interactiveDemo"></div>
+
+                <!-- Original Feature Cards (below demo) -->
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px;">
                     <div class="demo-feature-card">
                         <i class="fas fa-bolt" style="color: var(--accent); font-size: 2.5rem; margin-bottom: 15px;"></i>
                         <h3 style="font-size: 1.3rem; font-weight: 700; margin-bottom: 10px;">Lightning Fast</h3>
@@ -1330,4 +1336,5 @@
     </footer>
     <script src="demo-script.js"></script>
 </body>
+    <script src="demo-interactive.js"></script>
 </html>
