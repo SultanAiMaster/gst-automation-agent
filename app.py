@@ -10,6 +10,7 @@ from datetime import datetime, timedelta
 import pandas as pd
 import json
 import os
+from pdf_generator import InvoicePDFGenerator
 
 app = Flask(__name__)
 CORS(app)
@@ -515,6 +516,147 @@ def dashboard(business_id):
             }
         })
         
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'Error: {str(e)}'
+        }), 500
+
+# ==================== PDF INVOICE GENERATION ====================
+
+@app.route('/api/invoice/<int:invoice_id>/pdf')
+def generate_invoice_pdf(invoice_id):
+    """Generate PDF for an invoice"""
+    try:
+        invoice = Invoice.query.get(invoice_id)
+
+        if not invoice:
+            return jsonify({
+                'success': False,
+                'message': 'Invoice not found'
+            }), 404
+
+        business = BusinessProfile.query.get(invoice.business_id)
+
+        # Prepare invoice data
+        items = InvoiceItem.query.filter_by(invoice_id=invoice.id).all()
+
+        invoice_data = {
+            # Business details
+            'business_name': business.business_name,
+            'gstin': business.gstin,
+            'state': business.state,
+            'state_code': business.state_code,
+            'address': 'Business Address',  # Add to BusinessProfile model if needed
+            'phone': 'N/A',  # Add to BusinessProfile model if needed
+            'email': 'N/A',  # Add to BusinessProfile model if needed
+
+            # Invoice details
+            'invoice_number': invoice.invoice_number,
+            'invoice_date': invoice.invoice_date.strftime('%Y-%m-%d'),
+            'invoice_type': invoice.invoice_type,
+            'supply_type': 'Inter-State' if invoice.igst_amount > 0 else 'Intra-State',
+
+            # Customer details
+            'customer_name': invoice.customer_name or 'Customer',
+            'customer_gstin': invoice.customer_gstin or 'N/A',
+            'customer_address': 'Customer Address',  # Add to Invoice model if needed
+            'customer_state': 'N/A',  # Add to Invoice model if needed
+
+            # Items
+            'items': [
+                {
+                    'item_name': item.item_name,
+                    'hsn_code': item.hsn_code or 'N/A',
+                    'quantity': item.quantity,
+                    'unit_price': item.unit_price,
+                    'amount': item.amount,
+                    'gst_rate': item.gst_rate
+                }
+                for item in items
+            ],
+
+            # Tax details
+            'taxable_amount': invoice.taxable_amount,
+            'cgst_amount': invoice.cgst_amount,
+            'sgst_amount': invoice.sgst_amount,
+            'igst_amount': invoice.igst_amount,
+            'total_amount': invoice.total_amount,
+            'gst_rate': invoice.gst_rate,
+
+            # Bank details (placeholder - add to BusinessProfile)
+            'bank_name': 'Your Bank Name',
+            'account_number': 'N/A',
+            'ifsc_code': 'N/A',
+            'bank_branch': 'N/A'
+        }
+
+        # Generate PDF
+        pdf_generator = InvoicePDFGenerator()
+        pdf_buffer = pdf_generator.generate_invoice(invoice_data)
+
+        # Send file
+        filename = f"invoice_{invoice.invoice_number.replace('/', '-')}.pdf"
+        return send_file(
+            pdf_buffer,
+            mimetype='application/pdf',
+            as_attachment=True,
+            download_name=filename
+        )
+
+    except Exception as e:
+        return jsonify({
+            'success': False,
+            'message': f'Error generating PDF: {str(e)}'
+        }), 500
+
+@app.route('/api/invoice/<int:invoice_id>/preview')
+def preview_invoice(invoice_id):
+    """Get invoice data for preview without generating PDF"""
+    try:
+        invoice = Invoice.query.get(invoice_id)
+
+        if not invoice:
+            return jsonify({
+                'success': False,
+                'message': 'Invoice not found'
+            }), 404
+
+        business = BusinessProfile.query.get(invoice.business_id)
+        items = InvoiceItem.query.filter_by(invoice_id=invoice.id).all()
+
+        return jsonify({
+            'success': True,
+            'invoice': {
+                'id': invoice.id,
+                'invoice_number': invoice.invoice_number,
+                'invoice_date': invoice.invoice_date.strftime('%Y-%m-%d'),
+                'invoice_type': invoice.invoice_type,
+                'customer_name': invoice.customer_name,
+                'customer_gstin': invoice.customer_gstin,
+                'total_amount': invoice.total_amount,
+                'taxable_amount': invoice.taxable_amount,
+                'cgst_amount': invoice.cgst_amount,
+                'sgst_amount': invoice.sgst_amount,
+                'igst_amount': invoice.igst_amount,
+                'gst_rate': invoice.gst_rate,
+                'business_name': business.business_name,
+                'business_gstin': business.gstin,
+                'items': [
+                    {
+                        'id': item.id,
+                        'item_name': item.item_name,
+                        'hsn_code': item.hsn_code,
+                        'quantity': item.quantity,
+                        'unit_price': item.unit_price,
+                        'amount': item.amount,
+                        'gst_rate': item.gst_rate
+                    }
+                    for item in items
+                ]
+            }
+        })
+
     except Exception as e:
         return jsonify({
             'success': False,
